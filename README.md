@@ -1,4 +1,7 @@
-# toro_integrate_cloudformation_cookbooks
+# TORO Integrate on a CloudFormation Template
 
-TODO: Enter the cookbook description here.
+This repository contains recipes that will be used in configuring the CloudFormation Template in AWS.
 
+Authors:
+jairenz.batu@toro.io
+melton.pineda@toro.io

@@ -1,15 +1,15 @@
 ### DEFAULT ATTRIBUTES
 
 # Infrastructure Related Attributes
-default[:infra][:efs_id]															= shell_out("cat /opt/tmp/efsInstance")
-default[:infra][:region]															= shell_out("curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region")
-default[:infra][:availability_zone]										= open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
-default[:infra][:home_dir]										= "/datastore"
+default[:infra][:efs_id]                              = shell_out("cat /opt/tmp/efsInstance")
+default[:infra][:region]                              = shell_out("curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region")
+default[:infra][:availability_zone]                   = open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
+default[:infra][:home_dir]                            = "/datastore"
 
 # Application Related Attributes
-default[:application][:name]									= "integrate"
-default[:application][:organization]					= "yourorganization"
-default[:application][:code]									= "yourorganization1"
+default[:application][:name]                          = "integrate"
+default[:application][:organization]                  = "yourorganization"
+default[:application][:code]                          = "yourorganization1"
 default[:application][:clients_dir]						= "#{node[:infra][:home_dir]}/clients"
 default[:application][:home_dir]							= "#{node[:application][:clients_dir]}/#{node[:application][:organization]}/apps/#{node[:application][:name]}/#{node}[:application][:code]"
 default[:application][:assets_dir]						= "#{node[:application][:home_dir]}/assets"

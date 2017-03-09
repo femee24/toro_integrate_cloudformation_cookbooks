@@ -32,10 +32,6 @@ directory "#{node[:application][:web_config_dir]}"
 
 template "#{node[:application][:assets_dir]}/data/override.properties" do
         source 'override.properties.erb'
-        variables(
-            :http  => node[:application][:http_port],
-            :https => node[:application][:https_port]
-        )
 end
 
 template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
@@ -49,7 +45,7 @@ cookbook_file "/tmp/configure_mysql.sh" do
   owner "root"
 end
 
-execute "configure mysql" do
-  user "root"
-  command "sh /tmp/configure_mysql.sh '#{node[:application][:code]}' '#{node[:database][:username]}' '#{node[:database][:password]}' '#{node[:database][:master_user]}' '#{node[:database][:master_pass]}' '#{node[:database][:host]}' > #{node[:infra][:log_dir]}/mysql-config-${HOSTNAME}-$(date +'%m-%d-%y').log"
-end
+#execute "configure mysql" do
+#  user "root"
+#  command "sh /tmp/configure_mysql.sh '#{node[:application][:code]}' '#{node[:database][:username]}' '#{node[:database][:password]}' '#{node[:database][:master_user]}' '#{node[:database][:master_pass]}' '#{node[:database][:host]}' > #{node[:infra][:log_dir]}/mysql-config-${HOSTNAME}-$(date +'%m-%d-%y').log"
+#end

@@ -6,6 +6,14 @@
 
 include_attribute "global"
 
+template '#{directory}override.properties' do
+        source 'override.properties.erb'
+        variables(
+            :http => node[:http],
+            :https => node[:https]
+        )
+end
+
 #Configuring default folders under assets
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|
   directory "#{node[:application][:assets_dir]}" do
@@ -27,4 +35,3 @@ end
     recursive true
   end
 end
-

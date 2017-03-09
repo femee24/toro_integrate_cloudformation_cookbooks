@@ -14,6 +14,11 @@ default[:application][:clients_dir]						= "#{node[:infra][:home_dir]}/clients"
 default[:application][:home_dir]							= "#{node[:application][:clients_dir]}/#{node[:application][:organization]}/apps/#{node[:application][:name]}/#{node}[:application][:code]"
 default[:application][:assets_dir]						= "#{node[:application][:home_dir]}/assets"
 default[:application][:configs_dir]						= "#{node[:application][:home_dir]}/configs"
+default[:application][:http_port]						  = "8080"
+default[:application][:https_port]						= "8443"
+default[:application][:https_proxy_port]			= "8443"
+default[:application][:keystore_file]				  = "8080"
+default[:application][:keystore_pass]				  = "8080"
 
 # Generate Random Password for the Database
 db_pw = String.new

@@ -1,0 +1,146 @@
+{
+    "family": "",
+    "taskRoleArn": "",
+    "networkMode": "",
+    "containerDefinitions": [
+        {
+            "name": "",
+            "image": "",
+            "cpu": 0,
+            "memory": 0,
+            "memoryReservation": 0,
+            "links": [
+                ""
+            ],
+            "portMappings": [
+                {
+                    "containerPort": "<%= node[:application][:http_port] %>",
+                    "hostPort": "<%= node[:application][:container_http_port] %>",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": "<%= node[:application][:https_port] %>",
+                    "hostPort": "<%= node[:application][:container_https_port] %>",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": "<%= node[:application][:container_ftp_port] %>",
+                    "hostPort": "<%= node[:application][:container_ftp_port] %>",
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": "<%= node[:application][:debug_port] %>",
+                    "hostPort": "<%= node[:application][:container_debug_port] %>",
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [
+                ""
+            ],
+            "command": [
+                ""
+            ],
+            "environment": [
+                {
+                    "name": "",
+                    "value": ""
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/data/override.properties",
+                    "containerPath": "/data/conf/override.properties",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/data",
+                    "containerPath": "/data/data",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/packages",
+                    "containerPath": "/data/packages",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/tmp",
+                    "containerPath": "/data/tmp",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/jdbc-pool",
+                    "containerPath": "/data/conf/jdbc-pool",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:assets_dir]%>/logs",
+                    "containerPath": "/data/logs",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "<%= node[:application][:configs_dir]%>/.java",
+                    "containerPath": "/data/.java",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "",
+                    "readOnly": true
+                }
+            ],
+            "hostname": "",
+            "user": "",
+            "workingDirectory": "",
+            "disableNetworking": true,
+            "privileged": true,
+            "readonlyRootFilesystem": true,
+            "dnsServers": [
+                ""
+            ],
+            "dnsSearchDomains": [
+                ""
+            ],
+            "extraHosts": [
+                {
+                    "hostname": "",
+                    "ipAddress": ""
+                }
+            ],
+            "dockerSecurityOptions": [
+                ""
+            ],
+            "dockerLabels": {
+                "KeyName": ""
+            },
+            "ulimits": [
+                {
+                    "name": "",
+                    "softLimit": 0,
+                    "hardLimit": 0
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "",
+                "options": {
+                    "KeyName": ""
+                }
+            }
+        }
+    ],
+    "placementConstraints": [
+        {
+            "expression": "",
+            "type": "memberOf"
+        }
+    ],
+    "volumes": [
+        {
+            "name": "",
+            "host": {
+                "sourcePath": ""
+            }
+        }
+    ]
+}

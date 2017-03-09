@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
-include_attribute "global"
+#include_attribute "global"
 
 #Configuring default folders under assets
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|

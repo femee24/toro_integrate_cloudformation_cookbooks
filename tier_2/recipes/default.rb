@@ -6,19 +6,20 @@
 
 include_attribute "global"
 
-<<<<<<< HEAD
-template '#{directory}override.properties' do
+
+template "#{node[:application][:assets_dir]}/override.properties" do
         source 'override.properties.erb'
         variables(
-            :http => node[:http],
-            :https => node[:https]
+            :http  => node[:application][:http_port],
+            :https => node[:application][:https_port]
         )
 end
 
+template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
+        source 'integrate.conf.erb'
+end
+
 #Configuring default folders under assets
-=======
-# Configuring default folders under assets
->>>>>>> 18fdc163d68043565bcbb901868af00552f4d589
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|
   directory "#{node[:application][:assets_dir]}" do
     mode '0755'
@@ -39,8 +40,6 @@ end
     recursive true
   end
 end
-<<<<<<< HEAD
-=======
 
 # Configure database
 cookbook_file "/tmp/configure_mysql.sh" do
@@ -53,4 +52,3 @@ execute "configure mysql" do
   user "root"
   command "sh /tmp/configure_mysql.sh '#{node[:application][:code]}' '#{node[:database][:username]}' '#{node[:database][:password]}' '#{node[:database][:master_user]}' '#{node[:database][:master_pass]}' '#{node[:database][:host]}' > #{node[:infra][:log_dir]}/mysql-config-${HOSTNAME}-$(date +"%m-%d-%y").log"
 end
->>>>>>> 18fdc163d68043565bcbb901868af00552f4d589

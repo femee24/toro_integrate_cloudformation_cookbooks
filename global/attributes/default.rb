@@ -5,6 +5,7 @@ default[:infra][:efs_id]                              = shell_out("cat /opt/tmp/
 default[:infra][:region]                              = shell_out("curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region")
 default[:infra][:availability_zone]                   = open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
 default[:infra][:home_dir]                            = "/datastore"
+default[:infra][:log_dir]                             = "#{node[:infra][:home_dir]}/logs"
 
 # Application Related Attributes
 default[:application][:name]                          = "integrate"

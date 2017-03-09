@@ -6,19 +6,6 @@
 
 include_attribute "global"
 
-
-template "#{node[:application][:assets_dir]}/override.properties" do
-        source 'override.properties.erb'
-        variables(
-            :http  => node[:application][:http_port],
-            :https => node[:application][:https_port]
-        )
-end
-
-template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
-        source 'integrate.conf.erb'
-end
-
 #Configuring default folders under assets
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|
   directory "#{node[:application][:assets_dir]}" do
@@ -39,6 +26,18 @@ end
     action :create
     recursive true
   end
+end
+
+template "#{node[:application][:assets_dir]}/override.properties" do
+        source 'override.properties.erb'
+        variables(
+            :http  => node[:application][:http_port],
+            :https => node[:application][:https_port]
+        )
+end
+
+template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
+        source 'integrate.conf.erb'
 end
 
 # Configure database

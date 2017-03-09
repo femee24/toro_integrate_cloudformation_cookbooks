@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
-#include_attribute "global"
 
 #Configuring default folders under assets
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|
@@ -27,6 +26,9 @@ end
     recursive true
   end
 end
+
+#Configuring default folders under assets
+directory "#{node[:application][:web_config_dir]}"
 
 template "#{node[:application][:assets_dir]}/override.properties" do
         source 'override.properties.erb'

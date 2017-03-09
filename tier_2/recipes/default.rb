@@ -32,10 +32,12 @@ directory "#{node[:application][:web_config_dir]}"
 
 template "#{node[:application][:assets_dir]}/data/override.properties" do
         source 'override.properties.erb'
+        action :create_if_missing
 end
 
 template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
         source 'integrate.conf.erb'
+        action :create_if_missing
 end
 
 # Configure database

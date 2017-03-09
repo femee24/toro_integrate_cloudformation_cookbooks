@@ -1,10 +1,11 @@
 ### DEFAULT ATTRIBUTES
 
 # Infrastructure Related Attributes
-default[:infra][:efs_id]											= shell_out("cat /opt/tmp/efsInstance")
-default[:infra][:region]											= shell_out("curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region")
-default[:infra][:availability_zone]						= open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
-default[:infra][:home_dir]										= "/datastore"
+default[:infra][:efs_id]                              = shell_out("cat /opt/tmp/efsInstance")
+default[:infra][:region]                              = shell_out("curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region")
+default[:infra][:availability_zone]                   = open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
+default[:infra][:home_dir]                            = "/datastore"
+default[:infra][:log_dir]                             = "#{node[:infra][:home_dir]}/logs"
 
 # Application Related Attributes
 default[:application][:name]									= "integrate"
@@ -27,12 +28,12 @@ while db_pw.length < 20
 end
 
 # Database Related Attributes
-default[:database][:master_user]							= shell_out("cat #{node[:infra][:home_dir]}/temp/dbuser")
-default[:database][:master_pass]							= shell_out("cat #{node[:infra][:home_dir]}/temp/dbpass")
-default[:database][:host]											= shell_out("cat #{node[:infra][:home_dir]}/temp/dbhost")
-default[:database][:username]									= "#{node[:application][:code]}"
-default[:database][:password]									= db_pw
-default[:database][:tracker_db]								= "#{node[:application][:code]}_tracker"
-default[:database][:coder_db]									= "#{node[:application][:code]}_coder"
+default[:database][:master_user]                      = shell_out("cat #{node[:infra][:home_dir]}/temp/dbuser")
+default[:database][:master_pass]                      = shell_out("cat #{node[:infra][:home_dir]}/temp/dbpass")
+default[:database][:host]                             = shell_out("cat #{node[:infra][:home_dir]}/temp/dbhost")
+default[:database][:username]                         = "#{node[:application][:code]}"
+default[:database][:password]                         = db_pw
+default[:database][:tracker_db]                       = "#{node[:application][:code]}_tracker"
+default[:database][:coder_db]                         = "#{node[:application][:code]}_coder"
 
 #

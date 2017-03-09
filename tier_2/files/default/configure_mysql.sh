@@ -1,16 +1,17 @@
 #!/bin/bash
+set -e
 
-applicationCode = $1
+applicationCode=$1
 
-dbUser = $2
-dbpass = $3
+dbUser=$2
+dbpass=$3
 
-dbMasterUser = $4
-dbMasterpass = $5
-dbHostname = $6
+dbMasterUser=$4
+dbMasterpass=$5
+dbHostname=$6
 
-dbTracker = "${applicationCode}_tracker"
-dbCoder = "${applicationCode}_coder"
+dbTracker="${applicationCode}_tracker"
+dbCoder="${applicationCode}_coder"
 
 echo "[ INFO] Creating Database and User"
 echo "[ INFO] Username is: $dbUser"

@@ -7,7 +7,7 @@
 
 #Configuring default folders under assets
 %w{data jdbc-pool logs packages system-tmp tmp}.each do |dir|
-  directory "#{node[:application][:assets_dir]}" do
+  directory "#{node[:application][:assets_dir]}/#{dir}" do
     mode '0755'
     owner 'root'
     group 'root'
@@ -18,7 +18,7 @@ end
 
 # Configuring default folders under configs
 %w{.java custom-web-configs}.each do |dir|
-  directory "#{node[:application][:configs_dir]}" do
+  directory "#{node[:application][:configs_dir]}/#{dir}" do
     mode '0755'
     owner 'root'
     group 'root'
@@ -30,7 +30,7 @@ end
 #Configuring default folders under assets
 directory "#{node[:application][:web_config_dir]}"
 
-template "#{node[:application][:assets_dir]}/override.properties" do
+template "#{node[:application][:assets_dir]}/data/override.properties" do
         source 'override.properties.erb'
         variables(
             :http  => node[:application][:http_port],

@@ -38,9 +38,9 @@ while db_pw.length < 16
 end
 
 # Database Related Attributes
-default[:database][:master_user]                      = `cat #{node[:infra][:home_dir]}/temp/dbuser`
-default[:database][:master_pass]                      = `cat #{node[:infra][:home_dir]}/temp/dbpass`
-default[:database][:dbhost]                           = `cat #{node[:infra][:home_dir]}/temp/dbhost`
+default[:database][:master_user]                      = `cat #{node[:infra][:home_dir]}/temp/dbuser`.strip
+default[:database][:master_pass]                      = `cat #{node[:infra][:home_dir]}/temp/dbpass`.strip
+default[:database][:dbhost]                           = `cat #{node[:infra][:home_dir]}/temp/dbhost`.strip
 default[:database][:username]                         = "#{node[:application][:code]}"
 default[:database][:password]                         = db_pw
 

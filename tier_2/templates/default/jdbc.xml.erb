@@ -1,6 +1,6 @@
 <jdbc-connection-info enabled='true'>
 <driver-class>com.mysql.jdbc.Driver</driver-class>
-<url>jdbc:mysql://<%= {node[:database][:host]} %>:3306/<%= node[:application][:code] %>_<%= @database %></url>
+<url>jdbc:mysql://<%= node[:database][:host] %>:3306/<%= node[:application][:code] %>_<%= @database %></url>
 <user-name><%= node[:database][:username] %></user-name>
 <password><%= node[:database][:password] %></password>
 <idle-connection-period>1</idle-connection-period>

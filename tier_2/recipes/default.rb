@@ -40,6 +40,15 @@ template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{
         action :create_if_missing
 end
 
+%w{tracker coder}.each do |db|
+template "#{node[:application][:assets_dir]}/jdbc-pool/#{db}.xml" do
+        source 'jbdc.xml.erb'
+        variables(
+            :database => "#{db}"
+        )
+        action :create_if_missing
+end
+
 # Configure database
 cookbook_file "/tmp/configure_mysql.sh" do
   source "configure_mysql.sh"

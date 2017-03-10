@@ -33,7 +33,7 @@ default[:application][:keystore_pass]                 = "8080"
 
 # Generate Random Password for the Database
 db_pw = String.new
-while db_pw.length < 20
+while db_pw.length < 16
   db_pw << OpenSSL::Random.random_bytes(1).gsub(/\W/, '')
 end
 
@@ -43,7 +43,5 @@ default[:database][:master_pass]                      = `cat #{node[:infra][:hom
 default[:database][:host]                             = `cat #{node[:infra][:home_dir]}/temp/dbhost`
 default[:database][:username]                         = "#{node[:application][:code]}"
 default[:database][:password]                         = db_pw
-default[:database][:tracker_db]                       = "#{node[:application][:code]}_tracker"
-default[:database][:coder_db]                         = "#{node[:application][:code]}_coder"
 
 #

@@ -40,6 +40,11 @@ template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{
         action :create_if_missing
 end
 
+template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-ftp-#{node[:application][:name]}.conf" do
+        source 'integrate-ftp-stream.conf.erb'
+        action :create_if_missing
+end
+
 %w{tracker coder}.each do |db|
 template "#{node[:application][:assets_dir]}/jdbc-pool/#{db}.xml" do
         source 'jdbc.xml.erb'

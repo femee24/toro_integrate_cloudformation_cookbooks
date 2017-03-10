@@ -47,6 +47,7 @@ template "#{node[:application][:assets_dir]}/jdbc-pool/#{db}.xml" do
             :database => "#{db}"
         )
         action :create_if_missing
+   end
 end
 
 # Configure database

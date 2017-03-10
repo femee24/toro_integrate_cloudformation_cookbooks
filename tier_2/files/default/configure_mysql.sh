@@ -19,6 +19,7 @@ dbUser=${dbUser:0:15}
 echo "[ INFO] Creating Database and User"
 echo "[ INFO] Username is: $dbUser"
 echo "[ INFO] Password is: $dbpass"
+echo "[ INFO] MySQL Host is: $dbHostname"
 echo "[ INFO] Tracker Database is: $dbTracker"
 echo "[ INFO] Coder Database is: $dbCoder"
 

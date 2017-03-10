@@ -42,7 +42,7 @@ end
 
 %w{tracker coder}.each do |db|
 template "#{node[:application][:assets_dir]}/jdbc-pool/#{db}.xml" do
-        source 'jbdc.xml.erb'
+        source 'jdbc.xml.erb'
         variables(
             :database => "#{db}"
         )

@@ -40,7 +40,8 @@ end
 # Database Related Attributes
 default[:database][:master_user]                      = `cat #{node[:infra][:home_dir]}/temp/dbuser`
 default[:database][:master_pass]                      = `cat #{node[:infra][:home_dir]}/temp/dbpass`
-default[:database][:host]                             = `cat #{node[:infra][:home_dir]}/temp/dbhost`
+#default[:database][:host]                             = `cat #{node[:infra][:home_dir]}/temp/dbhost`
+default[:database][:host]                             = IO.read("#{node[:infra][:home_dir]}/temp/dbhost")
 default[:database][:username]                         = "#{node[:application][:code]}"
 default[:database][:password]                         = db_pw
 

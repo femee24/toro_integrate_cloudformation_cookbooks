@@ -49,7 +49,7 @@ end
 template "#{node[:application][:assets_dir]}/jdbc-pool/#{db}.xml" do
         source 'jdbc.xml.erb'
         variables(
-            :database => "#{db}"
+            :database_url => "#{node[:database][:host]}:3306/#{node[:application][:code]}_#{db}"
         )
         action :create_if_missing
    end

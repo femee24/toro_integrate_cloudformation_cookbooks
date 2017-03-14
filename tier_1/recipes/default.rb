@@ -7,6 +7,14 @@
 package 'nginx'
 package 'nginx-mod-stream'
 
+file '/datastore/vhosts/include.conf' do
+  action [:touch]
+end
+
+file '/datastore/vhosts/stream.conf' do
+  action [:touch]
+end
+
 template '/etc/nginx/nginx.conf' do
         source 'nginx.conf.erb'
 end

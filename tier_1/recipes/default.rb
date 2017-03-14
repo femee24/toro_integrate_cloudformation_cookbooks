@@ -25,10 +25,10 @@ end
 
 execute "Register Server's Public IP" do
   user "root"
-  command "echo $(curl http://169.254.169.254/latest/meta-data/public-ipv4) > /datastore/configs/saas/web-servers"
+  command "echo $(curl http://169.254.169.254/latest/meta-data/public-ipv4) > /datastore/configs/web-servers"
 end
 
 execute "Register Server's Private IP" do
   user "root"
-  command "echo $(curl http://169.254.169.254/latest/meta-data/local-ipv4) > /datastore/configs/saas/web-servers-private"
+  command "echo $(curl http://169.254.169.254/latest/meta-data/local-ipv4) > /datastore/configs/web-servers-private"
 end

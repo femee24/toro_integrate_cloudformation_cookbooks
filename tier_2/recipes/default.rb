@@ -37,13 +37,13 @@ end
 directory "#{node[:application][:web_config_dir]}"
 
 # HTTP/HTTPS Proxy Configuration
-template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}.conf" do
+template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-#{node[:application][:name]}-#{node[:opsworks][:instance][:hostname]}.conf" do
         source 'integrate.conf.erb'
         action :create_if_missing
 end
 
 # HTTP/HTTPS Proxy Configuration
-template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-ftp-#{node[:application][:name]}.conf" do
+template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-ftp-#{node[:application][:name]}-#{node[:opsworks][:instance][:hostname]}.conf" do
         source 'integrate-ftp-stream.conf.erb'
         action :create_if_missing
 end

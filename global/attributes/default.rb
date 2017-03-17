@@ -1,13 +1,12 @@
 # ## DEFAULT ATTRIBUTES
 #
 # Infrastructure Related Attributes
-default[:infra][:efs_id]                              = `cat /opt/tmp/efsInstance`
-default[:infra][:region]                              = `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region`
-default[:infra][:availability_zone]                   = open("http://169.254.169.254/latest/meta-data/placement/availability-zone")
+default[:infra][:efs_id]                              = `cat /opt/tmp/efsInstance`.strip
+default[:infra][:region]                              = `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region`.strip
+default[:infra][:internal_elb]                        = `curl -s http://169.254.169.254/latest/meta-data/local-ipv4`.strip
+default[:infra][:availability_zone]                   = `curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`.strip
 default[:infra][:home_dir]                            = "/datastore"
 default[:infra][:log_dir]                             = "#{node[:infra][:home_dir]}/logs"
-default[:infra][:internal_elb]                        = `curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
-
 
 # Application Related Attributes
 default[:application][:name]                          = "integrate"

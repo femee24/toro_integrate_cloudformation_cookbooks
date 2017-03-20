@@ -18,7 +18,6 @@ template "#{node[:application][:web_config_dir]}/#{node[:application][:code]}-ft
 end
 
 bash 'append_integrate_conf' do
-  cwd ::File.dirname(src_filepath)
   code <<-EOH
     #Integrate conf
     perl -i -ne "print unless /#{node[:application][:code]}-/" #{node[:infra][:home_dir]}/vhosts/include.conf

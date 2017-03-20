@@ -27,8 +27,8 @@ default[:application][:http_port]                     = "8080"
 default[:application][:https_port]                    = "8443"
 default[:application][:http_proxy_port]               = "80"
 default[:application][:https_proxy_port]              = "443"
-default[:application][:keystore_file]                 = "8080"
-default[:application][:keystore_pass]                 = "8080"
+default[:application][:keystore_file]                 = "keystore"
+default[:application][:keystore_pass]                 = "1qaz2wsx"
 
 # Generate Random Password for the Database
 db_pw = String.new

@@ -6,5 +6,5 @@
 
 execute "configure mysql" do
   user "root"
-  command 'aws opsworks create-deployment --region #{node[:infra][:region]} --stack-id #{node[:infra][:t1_stack_id]}  --command '{ "Name": "execute_recipes", "Args": {"recipes": ["tier_1::reload_nginx"]}}''
+  command "aws opsworks create-deployment --region #{node[:infra][:region]} --stack-id #{node[:infra][:t1_stack_id]}  --command "{\"Name\":\"execute_recipes\", \"Args\": {\"recipes\": [\"tier_1::reload_nginx\"]}}"""
 end

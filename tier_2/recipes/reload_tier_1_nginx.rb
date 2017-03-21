@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: tier_2
-# Recipe:: reload_tier_1_nginx
+# Recipe:: reload_t1_nginx
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 

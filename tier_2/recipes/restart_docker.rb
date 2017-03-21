@@ -7,3 +7,8 @@
 service 'docker' do
   action :restart
 end
+
+execute "start ecs-agent" do
+  user "root"
+  command "docker start ecs-agent"
+end

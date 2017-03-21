@@ -11,7 +11,7 @@ default[:infra][:log_dir]                             = "#{node[:infra][:home_di
 # Application Related Attributes
 default[:application][:name]                          = "integrate"
 default[:application][:organization]                  = "yourorganization"
-default[:application][:code]                          = "yourorganization1"
+default[:application][:code]                          = "#{node[:application][:organization]}1"
 default[:application][:domain]                        = "cloudformation-#{node[:opsworks][:instance][:hostname]}.toro.io"
 default[:application][:clients_dir]                   = "#{node[:infra][:home_dir]}/clients"
 default[:application][:web_config_dir]                = "#{node[:application][:clients_dir]}/#{node[:application][:organization]}/web_config"
@@ -43,4 +43,6 @@ default[:database][:dbhost]                           = `cat #{node[:infra][:hom
 default[:database][:username]                         = "#{node[:application][:code]}"
 default[:database][:password]                         = db_pw
 
-#
+# ActiveMQ Related Attributes
+default[:activemq][:home_dir]                         = "#{node[:infra][:home_dir]}/apps/activemq"
+default[:activemq][:ver]                              = "5.14.0"

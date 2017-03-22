@@ -10,8 +10,8 @@ directory "#{node[:zookeeper][:installer_dir]}" do
     recursive true
 end
 
-remote_file "#{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:ver]}.tar.gz" do
-	source "http://www-us.apache.org/dist/zookeeper/zookeeper-#{node[:zookeeper][:ver]}/zookeeper-#{node[:zookeeper][:ver]}.tar.gz"
+remote_file "#{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz" do
+	source "http://www-us.apache.org/dist/zookeeper/zookeeper-#{node[:zookeeper][:version]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz"
 	action :create_if_missing
 end
 
@@ -29,7 +29,7 @@ file "#{node[:zookeeper][:home_dir]}/myid" do
 end
 
 execute "decompress artifact to new instance" do
-  command "tar -zxvf #{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:ver]}.tar.gz -C /opt"
+  command "tar -zxvf #{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz -C /opt"
 end
 
 # toro integrate configuration file

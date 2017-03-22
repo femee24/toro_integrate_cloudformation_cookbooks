@@ -44,16 +44,18 @@ default[:database][:username]                         = "#{node[:application][:c
 default[:database][:password]                         = db_pw
 
 # ActiveMQ Related Attributes
+default[:activemq][:version]                          = "5.14.0"
 default[:activemq][:home_dir]                         = "#{node[:infra][:home_dir]}/apps/activemq"
-default[:activemq][:ver]                              = "5.14.0"
 
 # Zsookeeper Related Attributes
-default[:zookeeper][:home_dir]                         = "/opt/zookeeper-#{node[:zookeeper][:ver]}"
-default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
-default[:zookeeper][:ver]                              = "3.4.6"
-default[:zookeeper][:id]                               = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
+default[:zookeeper][:version]                         = "3.4.6"
+default[:zookeeper][:home_dir]                        = "/opt/zookeeper-#{node[:zookeeper][:version]}"
+default[:zookeeper][:installer_dir]                   = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
+default[:zookeeper][:id]                              = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
+default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:zookeeper][:layer_id]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":2181,",$0)}1'`.strip
+default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:nodes]}:2181"
 
 # Solr Related Attributes
-default[:solr][:home_dir]                              = "/opt/solr"
-default[:solr][:installer_dir]                         = "#{node[:infra][:home_dir]}/apps/solr"
-default[:solr][:ver]                                   = "6.2.1"
+default[:solr][:version]                              = "6.2.1"
+default[:solr][:home_dir]                             = "/opt/solr-#{node[:solr][:version]}"
+default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr"

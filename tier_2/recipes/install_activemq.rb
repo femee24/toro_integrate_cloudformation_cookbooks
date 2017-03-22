@@ -11,7 +11,7 @@
   end
 end
 
-directory "#{node[:infra][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}" do
+directory "#{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}" do
   recursive true
 end
 

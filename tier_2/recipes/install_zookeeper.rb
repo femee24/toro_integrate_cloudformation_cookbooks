@@ -38,5 +38,5 @@ template "#{node[:zookeeper][:home_dir]}/conf/zoo.cfg" do
 end
 
 execute "start zookeeper" do
-  command "/opt/bin/zkServer.sh start"
+  command "#{node[:infra][:home_dir]}/bin/zkServer.sh start"
 end

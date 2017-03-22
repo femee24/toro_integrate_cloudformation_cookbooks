@@ -48,8 +48,8 @@ default[:activemq][:home_dir]                         = "#{node[:infra][:home_di
 default[:activemq][:ver]                              = "5.14.0"
 
 # Zsookeeper Related Attributes
-default[:zookeeper][:home_dir]                         = "/opt/zookeeper"
-default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/zookeeper"
+default[:zookeeper][:home_dir]                         = "/opt/zookeeper-#{node[:zookeeper][:ver]}"
+default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
 default[:zookeeper][:ver]                              = "3.4.6"
 default[:zookeeper][:id]                               = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
 

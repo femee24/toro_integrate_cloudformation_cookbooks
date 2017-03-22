@@ -46,3 +46,14 @@ default[:database][:password]                         = db_pw
 # ActiveMQ Related Attributes
 default[:activemq][:home_dir]                         = "#{node[:infra][:home_dir]}/apps/activemq"
 default[:activemq][:ver]                              = "5.14.0"
+
+# Zsookeeper Related Attributes
+default[:zookeeper][:home_dir]                         = "/opt/zookeeper"
+default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/zookeeper"
+default[:zookeeper][:ver]                              = "5.14.0"
+default[:zookeeper][:id]                               = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
+
+# Solr Related Attributes
+default[:solr][:home_dir]                              = "/opt/solr"
+default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/solr"
+default[:solr][:ver]                                   = "6.2.1"

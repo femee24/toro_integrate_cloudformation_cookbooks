@@ -24,6 +24,6 @@ execute "decompress artifact to new instance" do
   command "tar -zxvf #{node[:activemq][:home_dir]}/installer/apache-activemq-#{node[:activemq][:ver]}-bin.tar.gz -C /datastore/apps/activemq/instances/#{node[:opsworks][:instance][:hostname]} --strip-components=1"
 end
 
-execute "start actimemq" do
+execute "start activemq" do
   command "sh #{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}/bin/activemq start"
 end

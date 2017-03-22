@@ -46,6 +46,9 @@ default[:database][:password]                         = db_pw
 # ActiveMQ Related Attributes
 default[:activemq][:home_dir]                         = "#{node[:infra][:home_dir]}/apps/activemq"
 default[:activemq][:ver]                              = "5.14.0"
+default[:activemq][:online_servers]                   = `aws opsworks describe-instances --layer-id #{node[:infra][:t2_activemq_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":61616,tcp://",$0)}1'`.strip
+default[:activemq][:jms_url]                          = "failover:tcp://#{node[:activemq][:online_servers]}:61616?CloseAsync=false"
+default[:activemq][:jms_file]                         = "remote-activemq"
 
 # Zsookeeper Related Attributes
 default[:zookeeper][:home_dir]                         = "/opt/zookeeper-#{node[:zookeeper][:ver]}"

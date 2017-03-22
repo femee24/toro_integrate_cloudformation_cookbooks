@@ -55,5 +55,5 @@ default[:zookeeper][:id]                               = "#{node[:opsworks][:ins
 
 # Solr Related Attributes
 default[:solr][:home_dir]                              = "/opt/solr"
-default[:zookeeper][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/solr"
+default[:solr][:installer_dir]                    = "#{node[:infra][:home_dir]}/apps/solr"
 default[:solr][:ver]                                   = "6.2.1"

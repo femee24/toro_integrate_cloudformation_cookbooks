@@ -7,6 +7,7 @@ default[:infra][:internal_elb]                        = `curl -s http://169.254.
 default[:infra][:availability_zone]                   = `curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`.strip
 default[:infra][:home_dir]                            = "/datastore"
 default[:infra][:log_dir]                             = "#{node[:infra][:home_dir]}/logs"
+default[:infra][:ssl_name]                            = "star.toro.io"
 
 # Application Related Attributes
 default[:application][:name]                          = "integrate"
@@ -29,6 +30,8 @@ default[:application][:http_proxy_port]               = "80"
 default[:application][:https_proxy_port]              = "443"
 default[:application][:keystore_file]                 = "keystore"
 default[:application][:keystore_pass]                 = "1qaz2wsx"
+default[:application][:ssl_chain]                     = `aws iam get-server-certificate --server-certificate-name #{node[:infra][:ssl_name]} --query 'ServerCertificate.CertificateChain' --output text`.strip
+default[:application][:ssl_body]                      = `aws iam get-server-certificate --server-certificate-name #{node[:infra][:ssl_name]} --query 'ServerCertificate.CertificateBody' --output text`.strip
 
 # Generate Random Password for the Database
 db_pw = String.new
@@ -50,15 +53,16 @@ default[:activemq][:online_servers]                   = `aws opsworks describe-i
 default[:activemq][:jms_url]                          = "failover:tcp://#{node[:activemq][:online_servers]}:61616?CloseAsync=false"
 default[:activemq][:jms_file]                         = "remote-activemq"
 
-# Zsookeeper Related Attributes
+# Zookeeper Related Attributes
 default[:zookeeper][:version]                         = "3.4.6"
 default[:zookeeper][:home_dir]                        = "/opt/zookeeper-#{node[:zookeeper][:version]}"
 default[:zookeeper][:installer_dir]                   = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
 default[:zookeeper][:id]                              = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
-default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:zookeeper][:layer_id]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":2181,",$0)}1'`.strip
+default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":2181,",$0)}1'`.strip
 default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:nodes]}:2181"
 
 # Solr Related Attributes
 default[:solr][:version]                              = "6.2.1"
 default[:solr][:home_dir]                             = "/opt/solr-#{node[:solr][:version]}"
 default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr"
+default[:solr][:mode]                                 = "cloud"

@@ -9,3 +9,6 @@ http.proxy.port=<%= node[:application][:http_proxy_port] %>
 #https.keystorePass=<%= node[:application][:keystore_pass] %>
 jms.file=<%= node[:activemq][:jms_url] %>
 jms.url=<%= node[:activemq][:jms_file] %>
+solr.mode=<%= node[:solr][:mode] %>
+solr.prefix=<%= node[:application][:code] %>
+solr.url=<%= node[:zookeeper][:cluster] %>

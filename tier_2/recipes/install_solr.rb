@@ -15,5 +15,5 @@ remote_file "/datastore/apps/solr/installer/solr-#{node[:solr][:version]}.tgz" d
 end
 
 execute "start solr" do
-  command "#{node[:solr][:home_dir}]/bin/solr start -cloud -z #{node[:zookeeper][:cluster}]"
+  command "#{node[:solr][:home_dir]}/bin/solr start -cloud -z #{node[:zookeeper][:cluster]}"
 end

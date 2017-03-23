@@ -15,7 +15,11 @@ remote_file "#{node[:solr][:installer_dir]}/solr-#{node[:solr][:version]}.tgz" d
 end
 
 execute "test" do
-  command "echo #{node[:zookeeper][:layer_id]} > /tmp/layer_id"
+  command "echo #{node[:zookeeper][:nodes]} > /tmp/nodes"
+end
+
+execute "test" do
+  command "echo #{node[:zookeeper][:cluster]} > /tmp/cluster"
 end
 
 execute "decompress artifact to new instance" do

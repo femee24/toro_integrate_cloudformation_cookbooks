@@ -65,7 +65,12 @@ default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:no
 
 # Solr Related Attributes
 default[:solr][:version]                              = "6.2.1"
+default[:solr][:port]                                 = "8983"
 default[:solr][:home_dir]                             = "/opt/solr-#{node[:solr][:version]}"
 default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr/installer"
 default[:solr][:config_dir]                           = "#{node[:infra][:home_dir]}/apps/solr/configs"
+default[:solr][:first_ip]                             = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_solr_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
 default[:solr][:mode]                                 = "cloud"
+default[:solr][:shards]                               = "1"
+default[:solr][:max_shards]                           = "1"
+default[:solr][:replication_factor]                   = "1"

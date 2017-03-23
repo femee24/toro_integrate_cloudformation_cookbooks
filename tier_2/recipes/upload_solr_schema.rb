@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2016 TORO Limited, All Rights Reserved.
 
-%w{tracker invoke_monitor }.each do |schema|
+%w{tracker invoke_monitor}.each do |schema|
   directory "#{node[:solr][:config_dir]}/#{schema}/conf" do
     mode "0755"
     recursive true

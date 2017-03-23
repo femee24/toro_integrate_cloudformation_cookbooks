@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <luceneMatchVersion>4.5</luceneMatchVersion>
+    <directoryFactory name="DirectoryFactory"
+                      class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+
+    <dataDir>${solr.core1.data.dir:}</dataDir>
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
+    <!-- 	<updateRequestProcessorChain> -->
+    <!-- 		 <processor class="solr.UUIDUpdateProcessorFactory"> -->
+    <!-- 		  	<str name="fieldName">internalId</str> -->
+    <!-- 		 </processor> -->
+    <!-- 		 <processor class="solr.LogUpdateProcessorFactory" /> -->
+    <!-- 		 <processor class="solr.RunUpdateProcessorFactory" /> -->
+    <!-- 	</updateRequestProcessorChain> -->
+    <updateHandler class="solr.DirectUpdateHandler2">
+        <updateLog>
+            <str name="dir">${solr.core1.data.dir:}</str>
+        </updateLog>
+    </updateHandler>
+    <requestHandler name="/get" class="solr.RealTimeGetHandler">
+        <lst name="defaults">
+            <str name="omitHeader">true</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy"/>
+
+    <requestDispatcher handleSelect="true">
+        <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048"
+                        formdataUploadLimitInKB="2048"/>
+    </requestDispatcher>
+
+    <requestHandler name="standard" class="solr.StandardRequestHandler" default="true"/>
+    <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler"/>
+    <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
+
+    <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+        <lst name="invariants">
+            <str name="q">solrpingquery</str>
+        </lst>
+        <lst name="defaults">
+            <str name="echoParams">all</str>
+        </lst>
+    </requestHandler>
+
+    <searchComponent name="suggest_phrase" class="solr.SpellCheckComponent">
+        <lst name="spellchecker">
+            <str name="name">suggest_phrase</str>
+            <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+            <str name="lookupImpl">org.apache.solr.spelling.suggest.fst.FSTLookup</str>
+            <str name="field">suggest_phrase</str>
+            <str name="buildOnCommit">true</str>
+        </lst>
+    </searchComponent>
+    <requestHandler class="org.apache.solr.handler.component.SearchHandler" name="/suggest_phrase">
+        <lst name="defaults">
+            <str name="spellcheck">true</str>
+            <str name="spellcheck.dictionary">suggest_phrase</str>
+            <str name="spellcheck.onlyMorePopular">true</str>
+            <str name="spellcheck.count">10</str>
+            <str name="spellcheck.collate">false</str>
+        </lst>
+        <arr name="components">
+            <str>suggest_phrase</str>
+        </arr>
+    </requestHandler>
+
+    <admin>
+        <defaultQuery>*:*</defaultQuery>
+    </admin>
+
+</config>

@@ -14,14 +14,6 @@ remote_file "#{node[:solr][:installer_dir]}/solr-#{node[:solr][:version]}.tgz" d
 	action :create_if_missing
 end
 
-execute "test" do
-  command "echo #{node[:zookeeper][:nodes]} > /tmp/nodes"
-end
-
-execute "test" do
-  command "echo #{node[:zookeeper][:cluster]} > /tmp/cluster"
-end
-
 execute "decompress artifact to new instance" do
   command "tar -zxvf #{node[:solr][:installer_dir]}/solr-#{node[:solr][:version]}.tgz -C /opt"
 end

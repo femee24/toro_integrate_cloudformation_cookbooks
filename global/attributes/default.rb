@@ -55,14 +55,17 @@ default[:activemq][:jms_file]                         = "remote-activemq"
 
 # Zookeeper Related Attributes
 default[:zookeeper][:version]                         = "3.4.6"
+default[:zookeeper][:port]                            = "2181"
 default[:zookeeper][:home_dir]                        = "/opt/zookeeper-#{node[:zookeeper][:version]}"
 default[:zookeeper][:installer_dir]                   = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
 default[:zookeeper][:id]                              = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
-default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":2181,",$0)}1'`.strip
-default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:nodes]}:2181"
+default[:zookeeper][:first_ip]                        = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
+default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":#{node[:zookeeper][:port]},",$0)}1'`.strip
+default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:nodes]}:#{node[:zookeeper][:port]}"
 
 # Solr Related Attributes
 default[:solr][:version]                              = "6.2.1"
 default[:solr][:home_dir]                             = "/opt/solr-#{node[:solr][:version]}"
-default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr"
+default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr/installer"
+default[:solr][:config_dir]                           = "#{node[:infra][:home_dir]}/apps/solr/configs"
 default[:solr][:mode]                                 = "cloud"

@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<schema name="tracker" version="1.0">
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <!--
+                                <filter class="solr.StopFilterFactory" ignoreCase="true" words="solr/dictionary/stopwords.txt"/>
+                -->
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1"
+                        generateNumberParts="1" catenateWords="1" catenateNumbers="1"
+                        catenateAll="0" splitOnCaseChange="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <!--
+                                <filter class="solr.SynonymFilterFactory" synonyms="solr/dictionary/synonyms.txt" ignoreCase="true" expand="true"/>
+                                <filter class="solr.StopFilterFactory" ignoreCase="true" words="solr/dictionary/stopwords.txt"/>
+                -->
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1"
+                        generateNumberParts="1" catenateWords="0" catenateNumbers="0"
+                        catenateAll="0" splitOnCaseChange="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <fieldType name="textgen" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <!--
+                                <filter class="solr.StopFilterFactory" ignoreCase="true" words="solr/dictionary/stopwords.txt"/>
+                -->
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1"
+                        generateNumberParts="1" catenateWords="1" catenateNumbers="1"
+                        catenateAll="0" splitOnCaseChange="0"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <!--
+                                <filter class="solr.SynonymFilterFactory" synonyms="solr/dictionary/synonyms.txt" ignoreCase="true" expand="true"/>
+                                <filter class="solr.StopFilterFactory" ignoreCase="true" words="solr/dictionary/stopwords.txt"/>
+                -->
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1"
+                        generateNumberParts="1" catenateWords="0" catenateNumbers="0"
+                        catenateAll="0" splitOnCaseChange="0"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <fieldtype name="ignored" stored="false" indexed="false" multiValued="true"
+                   class="solr.StrField"/>
+
+        <fieldType name="date" class="solr.TrieDateField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0"
+                   positionIncrementGap="0" sortMissingLast="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="float" class="solr.TrieFloatField" precisionStep="0"
+                   positionIncrementGap="0" sortMissingLast="true"/>
+        <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0"
+                   positionIncrementGap="0" sortMissingLast="true"/>
+
+        <fieldType name="suggest_phrase" class="solr.TextField" positionIncrementGap="100">
+            <analyzer>
+                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([^a-zA-Z0-9.:])"
+                            replacement=" "/>
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ShingleFilterFactory" maxShingleSize="5" outputUnigrams="true"/>
+            </analyzer>
+        </fieldType>
+        <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
+                   geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="degrees"/>
+    </types>
+
+    <fields>
+        <field name="internalId" type="string" indexed="true" stored="true" required="true"
+               multiValued="false"/>
+        <field name="externalId" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="documentTypeId" type="string" indexed="true" stored="true"
+               multiValued="false"/>
+        <field name="documentTypeName" type="string" indexed="true" stored="true"
+               multiValued="false"/>
+        <field name="stateName" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="senderId" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="receiverId" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="userName" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="docContent" type="text" indexed="true" stored="true" multiValued="true"/>
+        <field name="location" type="location_rpt" indexed="true" stored="true" multiValued="false"/>
+
+        <dynamicField name="stringProp_*" type="string" indexed="true" stored="true"
+                      multiValued="false"/>
+        <dynamicField name="dateProp_*" type="date" indexed="true" stored="true"
+                      multiValued="false"/>
+        <dynamicField name="longProp_*" type="long" indexed="true" stored="true"
+                      multiValued="false"/>
+        <dynamicField name="doubleProp_*" type="double" indexed="true" stored="true"
+                      multiValued="false"/>
+        <dynamicField name="floatProp_*" type="float" indexed="true" stored="true"
+                      multiValued="false"/>
+        <dynamicField name="intProp_*" type="int" indexed="true" stored="true" multiValued="false"/>
+
+        <field name="relatedDocuments" type="string" indexed="true" stored="false"
+               multiValued="true"/>
+        <field name="logMessages" type="string" indexed="true" stored="false" multiValued="true"/>
+        <field name="timeReceived" type="date" indexed="true" stored="true" multiValued="false"/>
+        <field name="year" type="string" indexed="true" stored="false" multiValued="false"/>
+        <field name="month" type="string" indexed="true" stored="false" multiValued="false"/>
+        <field name="day" type="string" indexed="true" stored="false" multiValued="false"/>
+        <!--
+                <field name="serialised" type="text" indexed="false" stored="true" multiValued="false"/>
+        -->
+        <!-- fields for ExtractingRequest Handler -->
+        <field name="title" type="text" indexed="true" stored="true" multiValued="true"/>
+        <field name="subject" type="text" indexed="true" stored="true" multiValued="false"/>
+        <field name="description" type="text" indexed="true" stored="true" multiValued="false"/>
+        <field name="comments" type="text" indexed="true" stored="true" multiValued="false"/>
+        <field name="author" type="textgen" indexed="true" stored="true" multiValued="false"/>
+        <field name="keywords" type="textgen" indexed="true" stored="true" multiValued="false"/>
+        <field name="category" type="textgen" indexed="true" stored="true" multiValued="false"/>
+        <field name="content_type" type="string" indexed="true" stored="true" multiValued="false"/>
+        <field name="last_modified" type="date" indexed="true" stored="true" multiValued="false"/>
+        <field name="links" type="string" indexed="true" stored="true" multiValued="true"/>
+        <dynamicField name="attr_*" type="textgen" indexed="true" stored="false"
+                      multiValued="true"/>
+        <dynamicField name="ignored_*" type="ignored" multiValued="true"/>
+        <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+        <field name="suggest_phrase" type="suggest_phrase" indexed="true" stored="false"
+               multiValued="true"/>
+    </fields>
+    <uniqueKey>internalId</uniqueKey>
+    <defaultSearchField>text</defaultSearchField>
+    <solrQueryParser defaultOperator="OR"/>
+    <copyField source="internalId" dest="text"/>
+    <copyField source="externalId" dest="text"/>
+    <copyField source="documentTypeId" dest="text"/>
+    <copyField source="documentTypeName" dest="text"/>
+    <copyField source="stateName" dest="text"/>
+    <copyField source="senderId" dest="text"/>
+    <copyField source="receiverId" dest="text"/>
+    <copyField source="userName" dest="text"/>
+    <copyField source="docContent" dest="text"/>
+    <copyField source="logMessages" dest="text"/>
+    <copyField source="relatedDocuments" dest="text"/>
+    <copyField source="prop_*" dest="text"/>
+
+    <copyField source="internalId" dest="suggest_phrase"/>
+    <copyField source="externalId" dest="suggest_phrase"/>
+    <copyField source="documentTypeId" dest="suggest_phrase"/>
+    <copyField source="documentTypeName" dest="suggest_phrase"/>
+    <copyField source="stateName" dest="suggest_phrase"/>
+    <copyField source="senderId" dest="suggest_phrase"/>
+    <copyField source="receiverId" dest="suggest_phrase"/>
+    <copyField source="userName" dest="suggest_phrase"/>
+    <copyField source="docContent" dest="suggest_phrase"/>
+    <copyField source="logMessages" dest="suggest_phrase"/>
+    <copyField source="relatedDocuments" dest="suggest_phrase"/>
+    <copyField source="prop_*" dest="suggest_phrase"/>
+</schema>

@@ -6,11 +6,6 @@
 
 %w{tracker invoke_monitor}.each do |schema|
   execute "create tracker collection" do
-    command "curl -s 'http://#{node[:solr][:first_ip]}:#{node[:solr][:port]}/admin/collections?action=CREATE&name=#{node[:application][:code]}_core_#{schema}&numShards=#{node[:solr][:shards]}&replicationFactor=#{node[:solr][:replication_factor]}&maxShardsPerNode=#{node[:solr][:max_shards]}&collection.configName=core_#{schema}&router.name=#{node[:solr][:router]}&wt=json'"
+    command "curl -s 'http://#{node[:solr][:first_ip]}:#{node[:solr][:port]}/solr/admin/collections?action=CREATE&name=#{node[:application][:code]}_core_#{schema}&numShards=#{node[:solr][:shards]}&replicationFactor=#{node[:solr][:replication_factor]}&maxShardsPerNode=#{node[:solr][:max_shards]}&collection.configName=core_#{schema}&router.name=#{node[:solr][:router]}&wt=json'"
   end
-
-  file "/tmp/upload" do
-    content "curl -s 'http://#{node[:solr][:first_ip]}:#{node[:solr][:port]}/admin/collections?action=CREATE&name=#{node[:application][:code]}_core_#{schema}&numShards=#{node[:solr][:shards]}&replicationFactor=#{node[:solr][:replication_factor]}&maxShardsPerNode=#{node[:solr][:max_shards]}&collection.configName=core_#{schema}&router.name=#{node[:solr][:router]}&wt=json'"
-  end
-
 end

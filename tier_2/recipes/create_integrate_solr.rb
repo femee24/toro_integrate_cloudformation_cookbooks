@@ -8,4 +8,9 @@
   execute "create tracker collection" do
     command "curl -s 'http://#{node[:solr][:first_ip]}:#{node[:solr][:port]}/admin/collections?action=CREATE&name=#{node[:application][:code]}_core_#{schema}&numShards=#{node[:solr][:shards]}&replicationFactor=#{node[:solr][:replication_factor]}&maxShardsPerNode=#{node[:solr][:max_shards]}&collection.configName=core_#{schema}&router.name=#{node[:solr][:router]}&wt=json'"
   end
+
+  execute "create tracker collection" do
+    command "echo 'curl -s 'http://#{node[:solr][:first_ip]}:#{node[:solr][:port]}/admin/collections?action=CREATE&name=#{node[:application][:code]}_core_#{schema}&numShards=#{node[:solr][:shards]}&replicationFactor=#{node[:solr][:replication_factor]}&maxShardsPerNode=#{node[:solr][:max_shards]}&collection.configName=core_#{schema}&router.name=#{node[:solr][:router]}&wt=json'' > /tmp/upload"
+  end
+
 end

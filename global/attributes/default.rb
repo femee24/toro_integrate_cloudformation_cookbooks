@@ -49,7 +49,7 @@ default[:database][:password]                         = db_pw
 # ActiveMQ Related Attributes
 default[:activemq][:version]                          = "5.14.0"
 default[:activemq][:home_dir]                         = "#{node[:infra][:home_dir]}/apps/activemq"
-default[:activemq][:online_servers]                   = `aws opsworks describe-instances --layer-id #{node[:infra][:t2_activemq_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":61616,tcp://",$0)}1'`.strip
+default[:activemq][:online_servers]                   = `aws opsworks describe-instances --layer-id #{node[:infra][:t2_activemq_layer]} --region #{node[:infra][:region]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":61616,tcp://",$0)}1'`.strip
 default[:activemq][:jms_url]                          = "failover:tcp://#{node[:activemq][:online_servers]}:61616?CloseAsync=false"
 default[:activemq][:jms_file]                         = "remote-activemq"
 
@@ -59,8 +59,8 @@ default[:zookeeper][:port]                            = "2181"
 default[:zookeeper][:home_dir]                        = "/opt/zookeeper-#{node[:zookeeper][:version]}"
 default[:zookeeper][:installer_dir]                   = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"
 default[:zookeeper][:id]                              = "#{node[:opsworks][:instance][:hostname]}".scan( /\d+$/ ).first
-default[:zookeeper][:first_ip]                        = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
-default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_zookeeper_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":#{node[:zookeeper][:port]},",$0)}1'`.strip
+default[:zookeeper][:first_ip]                        = `aws opsworks describe-instances --region #{node[:infra][:region]} --layer-id #{node[:infra][:t2_zookeeper_layer]} --region #{node[:infra][:region]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
+default[:zookeeper][:nodes]                           = `aws opsworks describe-instances --region #{node[:infra][:region]} --layer-id #{node[:infra][:t2_zookeeper_layer]} --region #{node[:infra][:region]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{gsub(/\t/,":#{node[:zookeeper][:port]},",$0)}1'`.strip
 default[:zookeeper][:cluster]                         =  "#{node[:zookeeper][:nodes]}:#{node[:zookeeper][:port]}"
 
 # Solr Related Attributes
@@ -69,7 +69,7 @@ default[:solr][:port]                                 = "8983"
 default[:solr][:home_dir]                             = "/opt/solr-#{node[:solr][:version]}"
 default[:solr][:installer_dir]                        = "#{node[:infra][:home_dir]}/apps/solr/installer"
 default[:solr][:config_dir]                           = "#{node[:infra][:home_dir]}/apps/solr/configs"
-default[:solr][:first_ip]                             = `aws opsworks describe-instances --region us-east-1 --layer-id #{node[:infra][:t2_solr_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
+default[:solr][:first_ip]                             = `aws opsworks describe-instances --region #{node[:infra][:region]} --layer-id #{node[:infra][:t2_solr_layer]} --query "Instances[?Status=='online'].PrivateIp" --output text | awk '{print $1}'`.strip
 default[:solr][:mode]                                 = "cloud"
 default[:solr][:shards]                               = "1"
 default[:solr][:max_shards]                           = "1"

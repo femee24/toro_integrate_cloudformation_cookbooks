@@ -5,9 +5,7 @@
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
 
-node['opsworks']['layers'].each do |layer, layerdata|
-  log "#{layerdata['name']} : #{layerdata['id']}"
-  layerdata['instances'].each do |instance, instancedata|
-    log "Public IP: #{instancedata['ip']}"
+node['opsworks']['layers']['zookeeper']["instances"].each do |instance, instancedata|
+    log "Private IP: #{instancedate['private_ip']}"
   end
 end

@@ -6,6 +6,6 @@
 
 
 node['opsworks']['layers']['zookeeper']["instances"].each do |instance, instancedata|
-    log "Private IP: #{instancedate['private_ip']}"
+    log "Private IP: #{instancedata['private_ip']}"
   end
 end

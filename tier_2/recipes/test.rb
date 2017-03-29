@@ -4,11 +4,8 @@
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
-override = data_bag('properties')
 
-template '/tmp/override.properties' do
-        source 'override.properties.erb'
-        variables(
-            http: override['http']
-        )
+node['opsworks']['layers']['zookeeper']['instances'].each do |instance, instancedata|
+    log "Private IP: #{instancedata['private_ip']}"
+  end
 end

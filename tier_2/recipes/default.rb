@@ -16,6 +16,9 @@
   end
 end
 
+# Configure own packages directory
+directory "#{node[:application][:assets_dir]}/packages/#{node[:opsworks][:instance][:hostname]}"
+
 # Configure default folders under configs
 %w{.java custom-web-configs}.each do |dir|
   directory "#{node[:application][:configs_dir]}/#{dir}" do

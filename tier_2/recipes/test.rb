@@ -11,5 +11,5 @@
 #end
 
 file "/tmp/zk" do
-  content "node['opsworks']['layers']['zookeeper']['instances']['zookeeper1']['ip']"
+  content "#{node[:opsworks][:layers][:zookeeper][:instances][:zookeeper1][:ip]}"
 end

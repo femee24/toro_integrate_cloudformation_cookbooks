@@ -10,6 +10,6 @@
 #  end
 #end
 
-file "/tmp/node["opsworks"]["layers"]["zookeeper"]["instances"]["zookeeper1"]["ip"]" do
+file "/tmp/zk" do
   content "node["opsworks"]["layers"]["zookeeper"]["instances"]["zookeeper1"]["ip"]"
 end

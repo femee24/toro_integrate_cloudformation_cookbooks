@@ -10,6 +10,6 @@
 #  end
 #end
 
-"#{node[:opsworks][:layers][:zookeeper][:instances]}".each do |instance|
+node['opsworks']['layers']['zookeeper']['instances'].each do |instance|
   content "#{node[:opsworks][:layers][:zookeeper][:instances][instance][:ip]}"
 end

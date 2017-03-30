@@ -12,6 +12,6 @@
 
 node['opsworks']['layers']['zookeeper']['instances'].each do |instance|
   file "/tmp/#{instance}" do
-  content "#{node[:opsworks][:layers][:zookeeper][:instances][instance][:ip]}"
+  content "#{instance}"
 end
 end

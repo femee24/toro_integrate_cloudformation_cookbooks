@@ -5,13 +5,7 @@
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
 
-#"#{node[:opsworks][:layers][:zookeeper][:instances]}".each do |instance, instancedata|
-#    log "Private IP: #{node[:opsworks][:layers][:zookeeper][:instances][instance][:private_ip]}"
-#  end
-#end
-
 node['opsworks']['layers']['zookeeper']['instances'].each do |instance, instancedata|
-  file "/tmp/#{instancedata['private_ip']}" do
-  content "#{instance}"
-end
+  i = 0
+  file("tmp/zoo.cfg").must_include "server.#{i+1}=#{instancedata['private_ip']}:2888:3888"
 end

@@ -9,7 +9,8 @@
 #    log "Private IP: #{node[:opsworks][:layers][:zookeeper][:instances][instance][:private_ip]}"
 #  end
 #end
+ec2 = "zookeeper1"
 
 file "/tmp/zk" do
-  content "#{node[:opsworks][:layers][:zookeeper][:instances][:zookeeper1][:ip]}"
+  content "#{node[:opsworks][:layers][:zookeeper][:instances][ec2][:ip]}"
 end

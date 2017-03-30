@@ -10,8 +10,8 @@
 #  end
 #end
 
-node['opsworks']['layers']['zookeeper']['instances'].first.each do |instance|
-  file "/tmp/#{instance}" do
+node['opsworks']['layers']['zookeeper']['instances'].each do |instance, instancedata|
+  file "/tmp/#{instancedata['private_ip']}" do
   content "#{instance}"
 end
 end

@@ -5,3 +5,5 @@ syncLimit=5
 clientPort=2181
 dataDir=/opt/zookeeper-<%= node[:zookeeper][:version] %>/data/
 server.1=<%= node[:opsworks][:instance][:ip] %>:2888:3888
+server.2=<%= node[:opsworks][:instance][:ip] %>:2888:3888
+server.3=<%= node[:opsworks][:instance][:ip] %>:2888:3888

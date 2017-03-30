@@ -10,4 +10,6 @@
 #  end
 #end
 
-log "node["opsworks"]["layers"]["zookeeper"]["instances"]["zookeeper1"]["ip"]"
+file "/tmp/node["opsworks"]["layers"]["zookeeper"]["instances"]["zookeeper1"]["ip"]" do
+  content "node["opsworks"]["layers"]["zookeeper"]["instances"]["zookeeper1"]["ip"]"
+end

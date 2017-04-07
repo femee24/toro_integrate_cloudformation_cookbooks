@@ -34,5 +34,5 @@ template "/opt/#{node[:opsworks][:instance][:hostname]}/conf/activemq.xml" do
 end
 
 execute "start activemq" do
-  command "sh #{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}/bin/activemq start"
+  command "sh opt/#{node[:opsworks][:instance][:hostname]}/bin/activemq start"
 end

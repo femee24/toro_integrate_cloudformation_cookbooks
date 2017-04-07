@@ -31,12 +31,3 @@ end
 execute "decompress artifact to new instance" do
   command "tar -zxvf #{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz -C /opt"
 end
-
-# toro integrate configuration file
-template "#{node[:zookeeper][:home_dir]}/conf/zoo.cfg" do
-        source 'zoo.cfg.erb'
-end
-
-execute "start zookeeper" do
-  command "#{node[:zookeeper][:home_dir]}/bin/zkServer.sh start"
-end

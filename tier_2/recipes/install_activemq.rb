@@ -16,6 +16,10 @@ directory "#{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][
   recursive true
 end
 
+directory "/opt/#{node[:opsworks][:instance][:hostname]}" do
+  recursive true
+end
+
 remote_file "#{node[:activemq][:home_dir]}/installer/apache-activemq-#{node[:activemq][:version]}-bin.tar.gz" do
   source "https://archive.apache.org/dist/activemq/#{node[:activemq][:version]}/apache-activemq-#{node[:activemq][:version]}-bin.tar.gz"
   action :create_if_missing

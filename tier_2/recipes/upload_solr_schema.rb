@@ -20,10 +20,10 @@
 
   execute "upload integrate schemas" do
     command "#{node[:solr][:home_dir]}/server/scripts/cloud-scripts/zkcli.sh -cmd upconfig -zkhost #{node[:zookeeper][:first_ip]}:#{node[:zookeeper][:port]} -confname core_#{schema} -confdir #{node[:solr][:config_dir]}/#{schema}/conf"
-    not_if { ::File.exists? "[/datastore/tmp/#{schema}]" }
+    not_if { ::File.exists? "[/datastore/temp/#{schema}]" }
   end
 
-  file "/datastore/tmp/#{schema}" do
+  file "/datastore/temp/#{schema}" do
     action :touch
   end
 

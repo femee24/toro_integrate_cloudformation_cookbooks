@@ -20,5 +20,5 @@ execute "decompress artifact to new instance" do
 end
 
 execute "start solr" do
-  command "#{node[:solr][:home_dir]}/bin/solr start -cloud -z #{node[:zookeeper][:cluster]}"
+  command "#{node[:solr][:home_dir]}/bin/solr start -cloud -z #{node[:zookeeper][:cluster]} -h #{node[:opsworks][:instance][:ip]}"
 end

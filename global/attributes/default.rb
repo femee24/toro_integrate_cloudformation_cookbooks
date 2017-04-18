@@ -19,6 +19,7 @@ default[:application][:web_config_dir]                = "#{node[:application][:c
 default[:application][:home_dir]                      = "#{node[:application][:clients_dir]}/#{node[:application][:organization]}/apps/#{node[:application][:name]}/#{node[:application][:code]}"
 default[:application][:assets_dir]                    = "#{node[:application][:home_dir]}/assets"
 default[:application][:configs_dir]                   = "#{node[:application][:home_dir]}/configs"
+default[:application][:packages_dir]                   = "/clients/#{node[:application][:organization]}/apps/#{node[:application][:name]}/#{node[:application][:code]}/assets/packages"
 default[:application][:packages]                      = "/integrate/packages"
 default[:application][:container_http_port]           = "38080"
 default[:application][:container_https_port]          = "38443"

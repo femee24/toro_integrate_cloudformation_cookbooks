@@ -13,7 +13,11 @@ end
 i = 0
 node['opsworks']['layers']['zookeeper']['instances'].each do |instance, instancedata|
   i = i + 1
-  open("#{node[:zookeeper][:home_dir]}/conf/zoo.cfg", 'a') { |f| f <<  "server.#{i}=#{instancedata['private_ip']}:2888:3888\n" }
+  bash 'add_zookeeper_nodes' do
+    code <<-EOH
+      echo server.#{i}=#{instancedata['private_ip']}:2888:3888 >> #{node[:zookeeper][:home_dir]}/conf/zoo.cfg
+    EOH
+end
 end
 
 

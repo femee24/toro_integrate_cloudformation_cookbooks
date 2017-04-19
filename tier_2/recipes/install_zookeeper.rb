@@ -24,10 +24,10 @@ end
 
 ENV['ZOO_LOG_DIR'] = "#{node[:zookeeper][:home_dir]}/logs"
 
-file "#{node[:zookeeper][:home_dir]}/myid" do
-  content "#{node[:zookeeper][:id]}"
-end
-
 execute "decompress artifact to new instance" do
   command "tar -zxvf #{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz -C /opt"
+end
+
+file "#{node[:zookeeper][:home_dir]}/data/myid" do
+  content "#{node[:zookeeper][:id]}"
 end

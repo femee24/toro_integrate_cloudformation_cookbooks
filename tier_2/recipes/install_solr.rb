@@ -16,8 +16,9 @@ end
 
 execute "decompress artifact to new instance" do
   command "tar -zxvf #{node[:solr][:installer_dir]}/solr-#{node[:solr][:version]}.tgz -C /opt"
+    not_if { ::File.exists? "[/#{node[:solr][:installer_dir]}]/server" }
 end
 
 execute "start solr" do
-  command "#{node[:solr][:home_dir]}/bin/solr start -cloud -z #{node[:zookeeper][:cluster]}"
+  command "#{node[:solr][:home_dir]}/bin/solr start -cloud -z #{node[:zookeeper][:cluster]} -h #{node[:opsworks][:instance][:ip]}"
 end

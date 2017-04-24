@@ -4,14 +4,19 @@
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
-%w{configs installer instances}.each do |dir|
+%w{configs installer instances sharedBrokerData}.each do |dir|
   directory "#{node[:activemq][:home_dir]}/#{dir}" do
     mode '0755'
     recursive true
   end
 end
 
+
 directory "#{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}" do
+  recursive true
+end
+
+directory "/opt/#{node[:opsworks][:instance][:hostname]}" do
   recursive true
 end
 
@@ -21,9 +26,13 @@ remote_file "#{node[:activemq][:home_dir]}/installer/apache-activemq-#{node[:act
 end
 
 execute "decompress artifact to new instance" do
-  command "tar -zxvf #{node[:activemq][:home_dir]}/installer/apache-activemq-#{node[:activemq][:version]}-bin.tar.gz -C /datastore/apps/activemq/instances/#{node[:opsworks][:instance][:hostname]} --strip-components=1"
+  command "tar -zxvf #{node[:activemq][:home_dir]}/installer/apache-activemq-#{node[:activemq][:version]}-bin.tar.gz -C /opt/#{node[:opsworks][:instance][:hostname]} --strip-components=1"
+end
+
+template "/opt/#{node[:opsworks][:instance][:hostname]}/conf/activemq.xml" do
+        source 'activemq.xml.erb'
 end
 
 execute "start activemq" do
-  command "sh #{node[:activemq][:home_dir]}/instances/#{node[:opsworks][:instance][:hostname]}/bin/activemq start"
+  command "sh opt/#{node[:opsworks][:instance][:hostname]}/bin/activemq start"
 end

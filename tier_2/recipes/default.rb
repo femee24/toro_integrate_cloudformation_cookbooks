@@ -11,7 +11,7 @@
     mode '0755'
     owner 'root'
     group 'root'
-    action :create
+    action :create_if_missing
     recursive true
   end
 end
@@ -25,7 +25,7 @@ directory "#{node[:application][:assets_dir]}/packages/#{node[:opsworks][:instan
     mode '0755'
     owner 'root'
     group 'root'
-    action :create
+    action :create_if_missing
     recursive true
   end
 end

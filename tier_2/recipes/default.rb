@@ -17,7 +17,9 @@
 end
 
 # Configure own packages directory
-directory "#{node[:application][:assets_dir]}/packages/#{node[:opsworks][:instance][:hostname]}"
+directory "#{node[:application][:assets_dir]}/packages/#{node[:opsworks][:instance][:hostname]}" do
+  recursive true
+end
 
 # Configure default folders under configs
 %w{.java custom-web-configs}.each do |dir|
@@ -36,4 +38,6 @@ template "#{node[:application][:assets_dir]}/data/override.properties" do
 end
 
 # Configure web directory
-directory "#{node[:application][:web_config_dir]}"
+directory "#{node[:application][:web_config_dir]}" do
+  recursive true
+end

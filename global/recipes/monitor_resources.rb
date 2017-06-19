@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: toro_global
+# Cookbook Name:: global
 # Recipe:: monitor_resources
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.

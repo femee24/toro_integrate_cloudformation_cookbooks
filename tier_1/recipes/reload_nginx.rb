@@ -4,6 +4,6 @@
 #
 # Copyright (c) 2017 TORO Limited, All Rights Reserved.
 
-service 'nginx' do
-	action [:reload]
+execute "Reload Nginx" do
+  command "nginx -s reload"
 end

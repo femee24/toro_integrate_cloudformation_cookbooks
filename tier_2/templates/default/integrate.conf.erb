@@ -46,7 +46,7 @@ server {
 
   ssl on;
   ssl_certificate       /datastore/vhosts/ssl-certs/integrate-selfsigned.crt;
-  ssl_certificate_key   /datastore/vhosts/ssl-certs/integrate-selfsigned.crt;
+  ssl_certificate_key   /datastore/vhosts/ssl-certs/integrate-selfsigned.key;
 
   location / {
     proxy_set_header           X-Forwarded-Host   $host;

@@ -37,7 +37,7 @@ template "#{node[:application][:assets_dir]}/data/override.properties" do
         source 'override.properties.erb'
 end
 
-file "#{node[:infra][:home_dir]}/configs/keystore" do
+cookbook_file "#{node[:infra][:home_dir]}/configs/keystore" do
         source 'keystore'
 end
 

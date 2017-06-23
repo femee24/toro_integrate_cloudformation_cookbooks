@@ -19,10 +19,8 @@ template '/etc/nginx/nginx.conf' do
         source 'nginx.conf.erb'
 end
 
-%w[ /etc/nginx/conf.d/certs/ssl_crt /etc/nginx/conf.d/certs/ssl_key ].each do |path|
-directory path do
+directory '/datastore/vhosts/ssl-certs' do
 	recursive true
-  end
 end
 
 template '/datastore/vhosts/ssl-certs/integrate-selfsigned.crt' do

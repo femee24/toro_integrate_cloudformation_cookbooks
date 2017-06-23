@@ -37,6 +37,10 @@ template "#{node[:application][:assets_dir]}/data/override.properties" do
         source 'override.properties.erb'
 end
 
+file "#{node[:infra][:home_dir]}/configs/keystore" do
+        source 'keystore'
+end
+
 # Configure web directory
 directory "#{node[:application][:web_config_dir]}" do
   recursive true

@@ -1,7 +1,7 @@
 server {
   listen 80;
 
-  server_name <%= node[:application][:domain] %>;
+  server_name <%= node[:opsworks][:instance][:hostname] %>.<%= node[:application][:domain] %>;
   access_log  /var/log/nginx/<%= node[:application][:domain] %>_access.log;
   error_log   /var/log/nginx/<%= node[:application][:domain] %>_error.log;
 

@@ -1,0 +1,4 @@
+server {
+	listen     <%= node[:application][:container_ftp_port] %>;
+	proxy_pass <%= node[:infra][:internal_elb] %>:<%= node[:application][:container_ftp_port] %>;
+}

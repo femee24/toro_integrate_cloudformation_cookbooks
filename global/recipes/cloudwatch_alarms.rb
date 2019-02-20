@@ -35,6 +35,6 @@ Dimensions= "Name=InstanceId,Value=#{node[:opsworks][:instance][:aws_instance_id
       log "wrong utilization parameter"
   end
   execute check do
-    command "aws cloudwatch put-metric-alarm --region us-east-2 --alarm-name #{AlarmName} --metric-name #{MetricName} --namespace #{NameSpace} --statistic #{Statistic} --unit #{Unit} --period #{Period} --threshold #{Threshold} --comparison-operator #{ComparisonOperator} --dimensions #{Dimensions} --evaluation-periods #{EvaluationPeriods} --ok-actions #{Actions} --alarm-actions #{Actions}"
+    command "aws cloudwatch put-metric-alarm --region #{node[:infra][:region]} --alarm-name #{AlarmName} --metric-name #{MetricName} --namespace #{NameSpace} --statistic #{Statistic} --unit #{Unit} --period #{Period} --threshold #{Threshold} --comparison-operator #{ComparisonOperator} --dimensions #{Dimensions} --evaluation-periods #{EvaluationPeriods} --ok-actions #{Actions} --alarm-actions #{Actions}"
   end
 end

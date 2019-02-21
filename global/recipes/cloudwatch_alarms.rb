@@ -14,7 +14,7 @@ EvaluationPeriods= 1
 Actions="#{node[:infra][:notification_email]}"
 NameSpace= "System/Linux"
 Dimensions= "Name=InstanceId,Value=#{node[:opsworks][:instance][:aws_instance_id]}"
-NameRegion= "#{node[:infra][:region]}"
+NameRegion= "#{node[:opsworks][:instance][:region]}"
 
 ['cpu', 'mem', 'disk'].each do |check|
   case [check]

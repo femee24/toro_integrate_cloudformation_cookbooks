@@ -56,7 +56,7 @@ default[:activemq][:jms_url]                          = "failover:tcp://#{node[:
 default[:activemq][:jms_file]                         = "remote-activemq"
 
 # Zookeeper Related Attributes
-default[:zookeeper][:version]                         = "3.4.10"
+default[:zookeeper][:version]                         = "3.4.12"
 default[:zookeeper][:port]                            = "2181"
 default[:zookeeper][:home_dir]                        = "/opt/zookeeper-#{node[:zookeeper][:version]}"
 default[:zookeeper][:installer_dir]                   = "#{node[:infra][:home_dir]}/apps/zookeeper/installer"

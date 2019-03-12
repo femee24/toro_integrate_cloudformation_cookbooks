@@ -11,8 +11,8 @@ directory "#{node[:zookeeper][:installer_dir]}" do
 end
 
 remote_file "#{node[:zookeeper][:installer_dir]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz" do
-	source "http://www-us.apache.org/dist/zookeeper/zookeeper-#{node[:zookeeper][:version]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz"
-	action :create_if_missing
+	source "https://archive.apache.org/dist/zookeeper/zookeeper-#{node[:zookeeper][:version]}/zookeeper-#{node[:zookeeper][:version]}.tar.gz"
+  action :create_if_missing
 end
 
 %w{data logs}.each do |dir|
